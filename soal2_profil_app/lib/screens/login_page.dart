@@ -9,6 +9,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Controller untuk mengambil input pengguna
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +45,46 @@ class _LoginPageState extends State<LoginPage> {
 
               const Text(
                 'Silakan login untuk melanjutkan',
+              ),
+
+              const SizedBox(height: 32),
+
+              // Input Username
+              TextFormField(
+                controller: _usernameController,
+                decoration: const InputDecoration(
+                  labelText: 'Username',
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // Input Password
+              TextFormField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.lock),
+                  border: OutlineInputBorder(),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Tombol Login sementara
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    print('Username: ${_usernameController.text}');
+                    print('Password: ${_passwordController.text}');
+                  },
+                  child: const Text('Login'),
+                ),
               ),
             ],
           ),
