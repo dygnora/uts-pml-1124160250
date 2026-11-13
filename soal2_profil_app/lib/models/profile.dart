@@ -1,15 +1,15 @@
 
 class Profile {
-  String nama;
-  String nim;
-  String prodi;
-  String kelas;
-  String bio;
-  String email;
-  String hp;
-  String github;
+  final String nama;
+  final String nim;
+  final String prodi;
+  final String kelas;
+  final String bio;
+  final String email;
+  final String hp;
+  final String github;
 
-  Profile({
+  const Profile({
     required this.nama,
     required this.nim,
     required this.prodi,
