@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'profile_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,14 +10,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   bool _obscurePassword = true;
   bool _isLoading = false;
 
-  // Proses login asynchronous
   Future<void> _login() async {
     if (!_formKey.currentState!.validate()) {
       return;
@@ -27,24 +25,22 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = true;
     });
 
-    // Simulasi proses login selama 2 detik
     await Future.delayed(const Duration(seconds: 2));
+
+    if (!mounted) return;
 
     final username = _usernameController.text.trim();
     final password = _passwordController.text;
-
-    if (!mounted) return;
 
     setState(() {
       _isLoading = false;
     });
 
-    // Pemeriksaan username dan password
     if (username == 'deny' && password == '123456') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login berhasil!'),
-          backgroundColor: Colors.green,
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ProfilePage(),
         ),
       );
     } else {
@@ -58,20 +54,24 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login Mahasiswa'),
         centerTitle: true,
       ),
-
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-
           child: Form(
             key: _formKey,
-
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -80,23 +80,15 @@ class _LoginPageState extends State<LoginPage> {
                   size: 90,
                   color: Colors.indigo,
                 ),
-
                 const SizedBox(height: 16),
-
                 Text(
                   'Selamat Datang',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
-
                 const SizedBox(height: 8),
-
-                const Text(
-                  'Silakan login untuk melanjutkan',
-                ),
-
+                const Text('Silakan login untuk melanjutkan'),
                 const SizedBox(height: 32),
 
-                // Input Username
                 TextFormField(
                   controller: _usernameController,
                   decoration: const InputDecoration(
@@ -111,10 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                     return null;
                   },
                 ),
-
                 const SizedBox(height: 16),
 
-                // Input Password
                 TextFormField(
                   controller: _passwordController,
                   obscureText: _obscurePassword,
@@ -139,25 +129,27 @@ class _LoginPageState extends State<LoginPage> {
                     if (value == null || value.isEmpty) {
                       return 'Password wajib diisi';
                     }
-
                     if (value.length < 6) {
                       return 'Password minimal 6 karakter';
                     }
-
                     return null;
                   },
                 ),
-
                 const SizedBox(height: 24),
 
-                // Tombol Login
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _login,
                     child: _isLoading
-                        ? const CircularProgressIndicator()
+                        ? const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          )
                         : const Text('Login'),
                   ),
                 ),
