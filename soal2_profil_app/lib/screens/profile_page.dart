@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -8,9 +9,16 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil Mahasiswa'),
+        centerTitle: true,
       ),
       body: const Center(
-        child: Text('Halaman Profil Mahasiswa'),
+        child: Text(
+          'Halaman Profil Mahasiswa',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
