@@ -9,15 +9,53 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // Mengelola validasi form
   final _formKey = GlobalKey<FormState>();
 
-  // Controller input
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // Mengatur visibilitas password
   bool _obscurePassword = true;
+  bool _isLoading = false;
+
+  // Proses login asynchronous
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // Simulasi proses login selama 2 detik
+    await Future.delayed(const Duration(seconds: 2));
+
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text;
+
+    if (!mounted) return;
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    // Pemeriksaan username dan password
+    if (username == 'deny' && password == '123456') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login berhasil!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Username atau password salah!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,18 +150,15 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 24),
 
-                // Tombol validasi sementara
+                // Tombol Login
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        print('Username: ${_usernameController.text}');
-                        print('Form berhasil divalidasi');
-                      }
-                    },
-                    child: const Text('Login'),
+                    onPressed: _isLoading ? null : _login,
+                    child: _isLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('Login'),
                   ),
                 ),
               ],
