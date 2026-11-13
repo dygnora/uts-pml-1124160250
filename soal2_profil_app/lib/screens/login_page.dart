@@ -1,17 +1,50 @@
 
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Login Mahasiswa'),
+        centerTitle: true,
       ),
-      body: const Center(
-        child: Text('Halaman Login'),
+
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.account_circle,
+                size: 90,
+                color: Colors.indigo,
+              ),
+
+              const SizedBox(height: 16),
+
+              Text(
+                'Selamat Datang',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+
+              const SizedBox(height: 8),
+
+              const Text(
+                'Silakan login untuk melanjutkan',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
