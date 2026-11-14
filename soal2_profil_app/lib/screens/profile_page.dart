@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart';
 import '../models/profile.dart';
+import 'about_page.dart';
+import 'edit_profile_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -22,6 +25,75 @@ class ProfilePage extends StatelessWidget {
         title: const Text('Profil Mahasiswa'),
         centerTitle: true,
       ),
+
+      // Drawer Navigation
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.indigo,
+              ),
+              accountName: Text(profile.nama),
+              accountEmail: Text(profile.nim),
+              currentAccountPicture: const CircleAvatar(
+                backgroundImage: AssetImage(
+                  'assets/images/profile.jpg',
+                ),
+              ),
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profil'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Edit Profil'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EditProfilePage(),
+                  ),
+                );
+              },
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('Tentang Saya'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AboutPage(),
+                  ),
+                );
+              },
+            ),
+
+            const Divider(),
+
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Keluar'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -144,6 +216,20 @@ class ProfilePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+
+      // Tombol cepat menuju Edit Profil
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const EditProfilePage(),
+            ),
+          );
+        },
+        tooltip: 'Edit Profil',
+        child: const Icon(Icons.edit),
       ),
     );
   }
