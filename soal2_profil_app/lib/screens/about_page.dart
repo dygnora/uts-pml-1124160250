@@ -54,7 +54,7 @@ class AboutPage extends StatelessWidget {
               InfoTile(
                 icon: Icons.language,
                 label: 'Web Development',
-                value: 'HTML, CSS, JavaScript dasar',
+                value: 'Next Js, Laravel, Code Igniter, Vue',
               ),
               Divider(height: 1, indent: 56),
               InfoTile(
@@ -78,13 +78,13 @@ class AboutPage extends StatelessWidget {
               InfoTile(
                 icon: Icons.school,
                 label: 'Perguruan Tinggi',
-                value: 'ITB Bina Sarana Global (Teknik Informatika)',
+                value: 'Global Institute (Teknik Informatika)',
               ),
               Divider(height: 1, indent: 56),
               InfoTile(
                 icon: Icons.account_balance,
                 label: 'Sekolah Menengah Kejuruan',
-                value: 'SMK Negeri 1 (Teknik Komputer & Jaringan)',
+                value: 'Bhakti Anindya (Teknik Komputer & Jaringan)',
               ),
             ],
           ),
