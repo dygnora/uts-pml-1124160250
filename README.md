@@ -1,6 +1,6 @@
 # Ujian Tengah Semester (UTS) – Pemrograman Mobile Lanjutan
 **Institut Teknologi & Bisnis Bina Sarana Global**  
-Semester Ganjil 2026/2027
+Semester 5 (Ganjil) 2026/2027
 
 ---
 
@@ -145,8 +145,8 @@ uts-pml-1124160250/
    ```
 
 4. **Kredensial Login**:
-   - **Username**: `deny`
-   - **Password**: `123456`
+   - **Username**: `denydermawan`
+   - **Password**: `deny1234`
 
 ---
 
