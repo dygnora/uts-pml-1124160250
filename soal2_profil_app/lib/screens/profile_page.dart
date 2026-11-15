@@ -125,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     : Theme.of(context).colorScheme.onPrimary,
                 child: const CircleAvatar(
                   radius: 34,
-                  backgroundImage: AssetImage('assets/images/profile.jpg'),
+                  backgroundImage: AssetImage('assets/images/profile.jpeg'),
                 ),
               ),
             ),
@@ -241,7 +241,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: const CircleAvatar(
                         radius: 60,
                         backgroundImage: AssetImage(
-                          'assets/images/profile.jpg',
+                          'assets/images/profile.jpeg',
                         ),
                       ),
                     ),
