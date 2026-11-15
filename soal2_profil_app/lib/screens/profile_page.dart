@@ -115,8 +115,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               accountEmail: Text(
                 profile.nim,
-                style: TextStyle(
-                  color: Colors.white.withOpacity(0.85),
+                style: const TextStyle(
+                  color: Colors.white70,
                 ),
               ),
               currentAccountPicture: CircleAvatar(
