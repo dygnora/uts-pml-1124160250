@@ -101,12 +101,28 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: isDark
+                    ? const Color(0xFF1E1E2E)
+                    : Theme.of(context).colorScheme.primary,
               ),
-              accountName: Text(profile.nama),
-              accountEmail: Text(profile.nim),
+              accountName: Text(
+                profile.nama,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              accountEmail: Text(
+                profile.nim,
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.85),
+                ),
+              ),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                backgroundColor: isDark
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.onPrimary,
                 child: const CircleAvatar(
                   radius: 34,
                   backgroundImage: AssetImage('assets/images/profile.jpg'),
