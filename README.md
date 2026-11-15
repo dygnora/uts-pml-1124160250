@@ -12,7 +12,7 @@ Semester Ganjil 2026/2027
 | **NIM** | 1124160250 |
 | **Kelas** | SE-1 |
 | **Program Studi** | Teknik Informatika |
-| **Dosen Pengampu**| IKetut Gunawan |
+| **Dosen Pengampu**| I Ketut Gunawan, S.Kom, M.TI |
 | **Repository** | [uts-pml-1124160250](https://github.com/dygnora/uts-pml-1124160250) |
 
 ---
@@ -21,18 +21,6 @@ Semester Ganjil 2026/2027
 
 > **Link Video:**  
 > 🔗 **[Tonton Video Demo & Penjelasan di YouTube](https://youtu.be/PLACEHOLDER_LINK_VIDEO_ANDA)**  
-> *(Ganti link di atas dengan URL video YouTube Anda setelah diunggah)*
-
-**Ketentuan Video:**
-- Durasi: 5–10 menit (visibilitas *Public* atau *Unlisted*).
-- Judul Video: `UTS PML – Aplikasi Profil – Deny Dermawan – 1124160250`.
-- Kamera wajah mahasiswa dan rekaman layar tampil selama presentasi.
-- **Urutan isi presentasi**:
-  1. Perkenalan diri dan aplikasi (≤ 30 detik).
-  2. Demo di Android: Login gagal (validasi) & berhasil, Halaman Profil, Edit Profil, Tentang Saya, dan Mode Gelap.
-  3. Penjelasan kode: `MaterialApp` (tema & routes), `Scaffold`, `Form + validator`, `setState()`, dan pengiriman data dengan `Navigator`.
-  4. Menampilkan repository GitHub, riwayat commit bertahap, dan halaman Releases APK.
-  5. Kesimpulan serta kendala yang dihadapi.
 
 ---
 
