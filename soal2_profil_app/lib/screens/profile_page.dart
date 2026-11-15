@@ -35,7 +35,9 @@ class _ProfilePageState extends State<ProfilePage> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const EditProfilePage(),
+        builder: (context) => EditProfilePage(
+          profile: profile,
+        ),
       ),
     );
   }
