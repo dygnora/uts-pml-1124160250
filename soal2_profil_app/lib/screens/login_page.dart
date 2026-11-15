@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = false;
     });
 
-    if (username == 'deny' && password == '123456') {
+    if (username == 'denydermawan' && password == 'deny1234') {
       Navigator.pushReplacementNamed(context, '/profile');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
