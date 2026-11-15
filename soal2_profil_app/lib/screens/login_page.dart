@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'profile_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -37,12 +36,7 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if (username == 'deny' && password == '123456') {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const ProfilePage(),
-        ),
-      );
+      Navigator.pushReplacementNamed(context, '/profile');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

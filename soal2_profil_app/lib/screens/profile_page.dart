@@ -1,11 +1,16 @@
-
 import 'package:flutter/material.dart';
 import '../models/profile.dart';
+import '../widgets/info_tile.dart';
 import 'about_page.dart';
 import 'edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final VoidCallback? onToggleTheme;
+
+  const ProfilePage({
+    super.key,
+    this.onToggleTheme,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -14,14 +19,14 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   int _selectedIndex = 0;
 
-  final Profile profile = const Profile(
+  Profile profile = const Profile(
     nama: 'Deny Dermawan',
     nim: '1124160250',
     prodi: 'Teknik Informatika',
     kelas: 'SE-1',
     bio: 'Mahasiswa Teknik Informatika yang tertarik pada pengembangan aplikasi web dan mobile.',
     email: '1124160250@global.ac.id',
-    hp: '0812xxxxxxxx',
+    hp: '081234567890',
     github: 'github.com/dygnora',
   );
 
@@ -32,7 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _openEditProfile() async {
-    await Navigator.push(
+    final updatedProfile = await Navigator.push<Profile>(
       context,
       MaterialPageRoute(
         builder: (context) => EditProfilePage(
@@ -40,10 +45,31 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+
+    if (updatedProfile != null) {
+      setState(() {
+        profile = updatedProfile;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Profil berhasil diperbarui!'),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
+  void _logout() {
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final pages = [
       _buildProfileContent(),
       const AboutPage(),
@@ -56,6 +82,88 @@ class _ProfilePageState extends State<ProfilePage> {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          if (widget.onToggleTheme != null)
+            IconButton(
+              icon: Icon(
+                isDark ? Icons.light_mode : Icons.dark_mode,
+              ),
+              tooltip: isDark ? 'Mode Terang' : 'Mode Gelap',
+              onPressed: widget.onToggleTheme,
+            ),
+        ],
+      ),
+
+      // Drawer Navigation
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              accountName: Text(profile.nama),
+              accountEmail: Text(profile.nim),
+              currentAccountPicture: const CircleAvatar(
+                backgroundImage: AssetImage('assets/images/profile.jpg'),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Profil'),
+              selected: _selectedIndex == 0,
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Edit Profil'),
+              onTap: () {
+                Navigator.pop(context);
+                _openEditProfile();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('Tentang Saya'),
+              selected: _selectedIndex == 1,
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _selectedIndex = 1;
+                });
+              },
+            ),
+            const Divider(),
+            if (widget.onToggleTheme != null)
+              SwitchListTile(
+                secondary: Icon(
+                  isDark ? Icons.dark_mode : Icons.light_mode,
+                ),
+                title: const Text('Mode Gelap'),
+                value: isDark,
+                onChanged: (_) {
+                  widget.onToggleTheme!();
+                },
+              ),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text(
+                'Keluar',
+                style: TextStyle(color: Colors.red),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                _logout();
+              },
+            ),
+          ],
+        ),
       ),
 
       body: pages[_selectedIndex],
@@ -195,25 +303,25 @@ class _ProfilePageState extends State<ProfilePage> {
             elevation: 1,
             child: Column(
               children: [
-                _buildContactTile(
+                InfoTile(
                   icon: Icons.email_outlined,
-                  title: 'Email',
+                  label: 'Email',
                   value: profile.email,
                 ),
 
                 const Divider(height: 1, indent: 56),
 
-                _buildContactTile(
+                InfoTile(
                   icon: Icons.phone_outlined,
-                  title: 'Nomor HP',
+                  label: 'Nomor HP',
                   value: profile.hp,
                 ),
 
                 const Divider(height: 1, indent: 56),
 
-                _buildContactTile(
+                InfoTile(
                   icon: Icons.code,
-                  title: 'GitHub',
+                  label: 'GitHub',
                   value: profile.github,
                 ),
               ],
@@ -245,24 +353,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
         ),
       ],
-    );
-  }
-
-  Widget _buildContactTile({
-    required IconData icon,
-    required String title,
-    required String value,
-  }) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        color: Theme.of(context).colorScheme.primary,
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ),
-      subtitle: Text(value),
     );
   }
 }
