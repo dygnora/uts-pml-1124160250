@@ -105,8 +105,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               accountName: Text(profile.nama),
               accountEmail: Text(profile.nim),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/profile.jpg'),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                child: const CircleAvatar(
+                  radius: 34,
+                  backgroundImage: AssetImage('assets/images/profile.jpg'),
+                ),
               ),
             ),
             ListTile(
@@ -216,10 +220,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      radius: 60,
-                      backgroundColor: colorScheme.primaryContainer,
-                      backgroundImage: const AssetImage(
-                        'assets/images/profile.jpg',
+                      radius: 64,
+                      backgroundColor: colorScheme.primary,
+                      child: const CircleAvatar(
+                        radius: 60,
+                        backgroundImage: AssetImage(
+                          'assets/images/profile.jpg',
+                        ),
                       ),
                     ),
 
@@ -250,11 +257,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       runSpacing: 8,
                       children: [
                         Chip(
-                          avatar: const Icon(Icons.school, size: 18),
+                          avatar: Icon(
+                            Icons.school,
+                            size: 18,
+                            color: colorScheme.primary,
+                          ),
                           label: Text(profile.prodi),
                         ),
                         Chip(
-                          avatar: const Icon(Icons.groups, size: 18),
+                          avatar: Icon(
+                            Icons.groups,
+                            size: 18,
+                            color: colorScheme.primary,
+                          ),
                           label: Text('Kelas ${profile.kelas}'),
                         ),
                       ],
