@@ -82,7 +82,7 @@ File APK telah dibuat dengan perintah `flutter build apk --release` dan diunggah
 
 | 1. Halaman Login | 2. Halaman Profil (Light) | 3. Fitur Drawer (Dark) |
 | :---: | :---: | :---: |
-| ![Screenshot Login](docs/screenshots/login.jpeg) | ![Screenshot Profil Light](docs/screenshots/profile_light.jpeg) | ![Screenshot Profil Dark](docs/screenshots/profile_dark.jpeg) |
+| ![Screenshot Login](docs/screenshots/login.jpeg) | ![Screenshot Profil Light](docs/screenshots/profile_light.jpeg) | ![Screenshot Profil Dark](docs/screenshots/drawer_dark.jpeg) |
 
 | 4. Halaman Edit Profil | 5. Validasi Edit Profil | 6. Halaman Tentang Saya |
 | :---: | :---: | :---: |
