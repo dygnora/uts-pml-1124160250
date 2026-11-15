@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
@@ -5,13 +6,33 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tentang Saya'),
-      ),
-      body: const Center(
-        child: Text('Halaman About'),
-      ),
+    return ListView(
+      padding: const EdgeInsets.all(24),
+      children: const [
+        SizedBox(height: 40),
+        Icon(
+          Icons.info_outline,
+          size: 80,
+          color: Colors.indigo,
+        ),
+        SizedBox(height: 20),
+        Center(
+          child: Text(
+            'Tentang Saya',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        SizedBox(height: 12),
+        Center(
+          child: Text(
+            'Halaman informasi mahasiswa',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }

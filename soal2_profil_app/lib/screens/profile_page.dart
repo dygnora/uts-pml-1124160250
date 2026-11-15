@@ -4,8 +4,15 @@ import '../models/profile.dart';
 import 'about_page.dart';
 import 'edit_profile_page.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  int _selectedIndex = 0;
 
   final Profile profile = const Profile(
     nama: 'Deny Dermawan',
@@ -18,218 +25,187 @@ class ProfilePage extends StatelessWidget {
     github: 'github.com/dygnora',
   );
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Future<void> _openEditProfile() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const EditProfilePage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Widget> pages = [
+      _buildProfileContent(),
+      const AboutPage(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profil Mahasiswa'),
+        title: Text(
+          _selectedIndex == 0 ? 'Profil Mahasiswa' : 'Tentang Saya',
+        ),
         centerTitle: true,
       ),
 
-      // Drawer Navigation
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.indigo,
-              ),
-              accountName: Text(profile.nama),
-              accountEmail: Text(profile.nim),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage(
-                  'assets/images/profile.jpg',
-                ),
-              ),
-            ),
+      body: pages[_selectedIndex],
 
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Profil'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-
-            ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text('Edit Profil'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const EditProfilePage(),
-                  ),
-                );
-              },
-            ),
-
-            ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text('Tentang Saya'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AboutPage(),
-                  ),
-                );
-              },
-            ),
-
-            const Divider(),
-
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Keluar'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+      // Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.indigo,
+        unselectedItemColor: Colors.grey,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info_outline),
+            label: 'About',
+          ),
+        ],
       ),
 
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 16),
+      // Floating Action Button
+      floatingActionButton: FloatingActionButton(
+        onPressed: _openEditProfile,
+        tooltip: 'Edit Profil',
+        child: const Icon(Icons.edit),
+      ),
+    );
+  }
 
-            // Foto Profil
-            const CircleAvatar(
-              radius: 65,
-              backgroundImage: AssetImage(
-                'assets/images/profile.jpg',
-              ),
+  Widget _buildProfileContent() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 16),
+
+          // Foto Profil
+          const CircleAvatar(
+            radius: 65,
+            backgroundImage: AssetImage(
+              'assets/images/profile.jpg',
             ),
+          ),
 
-            const SizedBox(height: 20),
+          const SizedBox(height: 20),
 
-            // Identitas Mahasiswa
-            Text(
-              profile.nama,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+          // Identitas Mahasiswa
+          Text(
+            profile.nama,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
             ),
+          ),
 
-            const SizedBox(height: 8),
+          const SizedBox(height: 8),
 
-            Text(
-              profile.nim,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+          Text(
+            profile.nim,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
             ),
+          ),
 
-            const SizedBox(height: 8),
+          const SizedBox(height: 8),
 
-            Text(
-              profile.prodi,
-              style: const TextStyle(fontSize: 16),
-            ),
+          Text(
+            profile.prodi,
+            style: const TextStyle(fontSize: 16),
+          ),
 
-            Text(
-              'Kelas ${profile.kelas}',
-              style: const TextStyle(fontSize: 16),
-            ),
+          Text(
+            'Kelas ${profile.kelas}',
+            style: const TextStyle(fontSize: 16),
+          ),
 
-            const SizedBox(height: 24),
+          const SizedBox(height: 24),
 
-            // Bio Mahasiswa
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      children: [
-                        Icon(Icons.person_outline),
-                        SizedBox(width: 8),
-                        Text(
-                          'Tentang Saya',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      profile.bio,
-                      textAlign: TextAlign.justify,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 16),
-
-            // Informasi Kontak
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Informasi Kontak',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 8),
-
-            Card(
+          // Bio Mahasiswa
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ListTile(
-                    leading: const Icon(Icons.email),
-                    title: const Text('Email'),
-                    subtitle: Text(profile.email),
+                  const Row(
+                    children: [
+                      Icon(Icons.person_outline),
+                      SizedBox(width: 8),
+                      Text(
+                        'Tentang Saya',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  const Divider(height: 1),
-                  ListTile(
-                    leading: const Icon(Icons.phone),
-                    title: const Text('Nomor HP'),
-                    subtitle: Text(profile.hp),
-                  ),
-                  const Divider(height: 1),
-                  ListTile(
-                    leading: const Icon(Icons.code),
-                    title: const Text('GitHub'),
-                    subtitle: Text(profile.github),
+                  const SizedBox(height: 12),
+                  Text(
+                    profile.bio,
+                    textAlign: TextAlign.justify,
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
 
-      // Tombol cepat menuju Edit Profil
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const EditProfilePage(),
+          const SizedBox(height: 16),
+
+          // Informasi Kontak
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Informasi Kontak',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          );
-        },
-        tooltip: 'Edit Profil',
-        child: const Icon(Icons.edit),
+          ),
+
+          const SizedBox(height: 8),
+
+          Card(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.email),
+                  title: const Text('Email'),
+                  subtitle: Text(profile.email),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.phone),
+                  title: const Text('Nomor HP'),
+                  subtitle: Text(profile.hp),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.code),
+                  title: const Text('GitHub'),
+                  subtitle: Text(profile.github),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
