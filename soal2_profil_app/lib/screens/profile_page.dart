@@ -186,12 +186,14 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
 
-      // Floating Action Button
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _openEditProfile,
-        icon: const Icon(Icons.edit),
-        label: const Text('Edit Profil'),
-      ),
+      // Floating Action Button (hanya tampil di tab Profil)
+      floatingActionButton: _selectedIndex == 0
+          ? FloatingActionButton.extended(
+              onPressed: _openEditProfile,
+              icon: const Icon(Icons.edit),
+              label: const Text('Edit Profil'),
+            )
+          : null,
     );
   }
 
