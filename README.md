@@ -20,7 +20,7 @@ Semester 5 (Ganjil) 2026/2027
 ## 🎬 Link Video Presentasi YouTube
 
 > **Link Video:**  
-> 🔗 **[Tonton Video Demo & Penjelasan di YouTube](https://youtu.be/PLACEHOLDER_LINK_VIDEO_ANDA)**  
+> 🔗 **[Tonton Video Demo & Penjelasan di YouTube](https://www.youtube.com/watch?v=oafbht9zcfU)**  
 
 ---
 
